@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="tv-auth">
+        <div class="tv-auth-card">
+            <a href="{{ path('app_login') }}" class="tv-brand fs-3 d-inline-block mb-1">travel<span>.</span></a>
+            <h1 class="h4 mb-1">Créer un compte</h1>
+            <p class="text-secondary mb-4">Organise tes prochains voyages entre amis.</p>
+
+            {{ form_start(registrationForm, {attr: {novalidate: 'novalidate'}}) }}
+                {{ form_errors(registrationForm) }}
+                <div class="row g-3">
+                    <div class="col-sm-6">{{ form_row(registrationForm.firstName) }}</div>
+                    <div class="col-sm-6">{{ form_row(registrationForm.lastName) }}</div>
+                </div>
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword.first) }}
+                {{ form_row(registrationForm.plainPassword.second) }}
+
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-2">Créer mon compte</button>
+            {{ form_end(registrationForm) }}
+
+            <p class="text-center text-secondary mt-4 mb-0">
+                Déjà inscrit ? <a href="{{ path('app_login') }}">Se connecter</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

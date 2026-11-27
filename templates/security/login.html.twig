@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="tv-auth">
+        <div class="tv-auth-card">
+            <a href="{{ path('app_home') }}" class="tv-brand fs-3 d-inline-block mb-1">travel<span>.</span></a>
+            <h1 class="h4 mb-1">Bon retour 👋</h1>
+            <p class="text-secondary mb-4">Connecte-toi pour retrouver tes voyages.</p>
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form method="post" novalidate>
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                           autocomplete="email" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword" class="form-label">Mot de passe</label>
+                    <div class="input-group">
+                        <input type="password" name="password" id="inputPassword" class="form-control"
+                               autocomplete="current-password" required>
+                        <button type="button" class="btn btn-outline-secondary" data-password-toggle="#inputPassword"
+                                aria-pressed="false">Afficher</button>
+                    </div>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input type="checkbox" name="_remember_me" id="rememberMe" class="form-check-input">
+                    <label for="rememberMe" class="form-check-label">Se souvenir de moi</label>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary w-100 py-2" type="submit">Se connecter</button>
+            </form>
+
+            <p class="text-center text-secondary mt-4 mb-0">
+                Pas encore de compte ? <a href="{{ path('app_register') }}">Créer un compte</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

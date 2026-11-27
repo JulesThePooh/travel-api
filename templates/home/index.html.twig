@@ -1,0 +1,52 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mes voyages{% endblock %}
+
+{% block content %}
+    <header class="mb-4">
+        <h1 class="h2 mb-1">Salut {{ app.user.firstName }} ✈️</h1>
+        <p class="text-secondary mb-0">Voici les voyages que tu organises ou auxquels tu participes.</p>
+    </header>
+
+    <div class="row g-3 mb-5">
+        <div class="col-6 col-md-3">
+            <div class="tv-stat"><strong>{{ upcomingTrips|length }}</strong><small>à venir</small></div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="tv-stat"><strong>{{ pastTrips|length }}</strong><small>passés</small></div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="tv-stat"><strong>{{ ownedCount }}</strong><small>organisés par toi</small></div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="tv-stat">
+                <strong>{{ upcomingTrips|length ? upcomingTrips|first.startDate|format_date('short', locale='fr') : '—' }}</strong>
+                <small>prochain départ</small>
+            </div>
+        </div>
+    </div>
+
+    <section class="mb-5">
+        <h2 class="h4 mb-3">À venir</h2>
+        {% if upcomingTrips %}
+            <div class="row g-4">
+                {% for trip in upcomingTrips %}
+                    <div class="col-md-6 col-xl-4">{% include 'home/_trip_card.html.twig' %}</div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="tv-stat text-center text-secondary py-5">Aucun voyage prévu… il est temps d'en organiser un !</div>
+        {% endif %}
+    </section>
+
+    {% if pastTrips %}
+        <section class="tv-past">
+            <h2 class="h4 mb-3">Souvenirs</h2>
+            <div class="row g-4">
+                {% for trip in pastTrips %}
+                    <div class="col-md-6 col-xl-4">{% include 'home/_trip_card.html.twig' %}</div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

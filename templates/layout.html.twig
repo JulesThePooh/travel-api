@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="tv-nav py-3">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a href="{{ path('app_home') }}" class="tv-brand fs-4">travel<span>.</span></a>
+
+            {% if app.user %}
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-none d-sm-block text-end lh-sm">
+                        <div class="fw-semibold">{{ app.user.fullName }}</div>
+                        <small class="text-secondary">{{ app.user.email }}</small>
+                    </div>
+                    <span class="tv-avatar">{{ app.user.initials }}</span>
+                    <a href="{{ path('app_logout') }}" class="btn btn-sm btn-outline-secondary">Déconnexion</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container py-4 py-md-5">
+        {% include 'partials/_flashes.html.twig' %}
+        {% block content %}{% endblock %}
+    </main>
+{% endblock %}

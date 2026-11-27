@@ -1,0 +1,57 @@
+{% set isOwner = trip.ownedBy(app.user) %}
+{% set myMembership = trip.memberFor(app.user) %}
+{% set accepted = trip.acceptedMembers %}
+
+<article class="tv-trip">
+    <div class="d-flex justify-content-between align-items-start gap-2">
+        <div>
+            <h3 class="h5 mb-1">{{ trip.title }}</h3>
+            <div class="tv-trip-dest">📍 {{ trip.destination }}</div>
+        </div>
+        <div class="d-flex flex-column align-items-end gap-1">
+            {% if isOwner %}
+                <span class="badge rounded-pill tv-badge-owner">Organisateur</span>
+            {% elseif myMembership and myMembership.status.value == 'invited' %}
+                <span class="badge rounded-pill text-bg-light border">Invitation</span>
+            {% endif %}
+            {% if trip.ongoing %}
+                <span class="badge rounded-pill tv-badge-ongoing">En cours</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="tv-trip-dates">
+        {{ trip.startDate|format_date('medium', locale='fr') }} → {{ trip.endDate|format_date('medium', locale='fr') }}
+        <span class="text-secondary">· {{ trip.durationInDays }} jour{{ trip.durationInDays > 1 ? 's' }}</span>
+    </div>
+
+    {% if trip.activities|length %}
+        <ul class="tv-activities">
+            {% for activity in trip.activities|slice(0, 3) %}
+                <li>
+                    <span>{{ activity.name }}</span>
+                    <span>{{ activity.pricePerPerson > 0 ? activity.pricePerPerson|format_currency('EUR', locale='fr') ~ ' /pers.' : 'Gratuit' }}</span>
+                </li>
+            {% endfor %}
+            {% if trip.activities|length > 3 %}
+                <li class="text-secondary">+ {{ trip.activities|length - 3 }} autre{{ trip.activities|length - 3 > 1 ? 's' }} activité{{ trip.activities|length - 3 > 1 ? 's' }}</li>
+            {% endif %}
+        </ul>
+    {% else %}
+        <p class="text-secondary small mb-0">Aucune activité prévue pour l'instant.</p>
+    {% endif %}
+
+    <div class="tv-trip-footer">
+        <div class="d-flex align-items-center gap-2">
+            <div class="tv-avatars">
+                {% for member in accepted|slice(0, 4) %}
+                    <span class="tv-avatar" title="{{ member.user.fullName }}">{{ member.user.initials }}</span>
+                {% endfor %}
+            </div>
+            <span>{{ accepted|length }} participant{{ accepted|length > 1 ? 's' }}</span>
+        </div>
+        <span title="Total des activités par personne">
+            {{ trip.activitiesCostPerPerson|format_currency('EUR', locale='fr') }} /pers.
+        </span>
+    </div>
+</article>

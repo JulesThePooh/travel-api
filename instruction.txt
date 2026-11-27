@@ -1,0 +1,23 @@
+1 : créer un symfony ici, prend exemple sur la structure docker du site ~/dev/symfony-v7, mais ne met pas redis ni mailpit ni le worker, garde aussi le makefile au moin pour le init
+2 : tu me créer des entitées qu'il faut le but c'est d'organiser des voyages entre plusieurs personnes, donc je sais pas on va dire commen entitée :
+- User (tu créer une vrai connexion via un form de login) et un vrai register
+- Trip (le voyage en lui même) (les dates etc)
+- Activity (les activitées durant un voyage) (prix par personne etc)
+- Une ou Deux autres si t'as des idées ?
+
+Met moi les bonnes relatrions entre tout ça
+le trip doit avoir un owner et des gens qui y participe
+
+3 : Tu me créer toutes les fixtures possible un peu de la meme manière que dans le symfony v7, la meme lib
+pour les user tu me met 12345 en dur comme mot de passe (hashé) et certains user aussi avec un email en dur pour qu'on se connecte facilement
+
+
+4 : pour le front tu me fait une rapide config vite pour les assets, il faut que les assets soit appliqué sur toutes les pages du sites, tu me vire assetmapper, ne me met pas de TS
+
+5 : du coup je veux avoir que 3 pages pour l'instant :
+- login
+- register
+- home (sachant qu'il faut etre connecté pour avoir accèes à ses trips)
+
+6 : c'est tout
+

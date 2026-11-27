@@ -1,0 +1,3 @@
+pentatrion_vite:
+    # dossier public/build généré par vite build
+    build_directory: build
